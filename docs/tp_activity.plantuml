@@ -1,0 +1,37 @@
+@startuml
+
+start
+
+:print Welcome;
+:Print Menu;
+
+while (always?) 
+  switch (entrada do usuario?)
+  case ( Entrada N(ew Estacao) )
+    :le Nome da estação
+    le  Nome do operador responsável
+    le   Tipo de sensor
+    le Data da coleta (dia, mes, ano)
+    le Quantidade de leituras (n)
+    le Valores numéricos das leituras medidas.;
+  case ( Entrada R(emover Estacao) ) 
+    :Le id da estacao a ser removida;
+  case ( Entrada E(ditar Estacao) )
+    :Text 3;
+  case ( Entrada D(eletar Estacao) )
+    :Text 4;
+  case ( Entrada L(istar Estacao) )
+    :Text 5;
+  case ( Entrada C(hecar anomalias) )
+    :Text 6;
+  case ( Entrada O(porador - buscar estacoes pelo operador) )
+    :Text 9;
+  case ( Entrada S(air) )
+    stop
+  endswitch
+endwhile
+-[hidden]->
+detach
+
+@enduml
+
