@@ -18,6 +18,9 @@ void parser_data(struct DataLeitura *data, char* buff);
 //a string idealmente eh uma linha do arquivo de persistencia
 struct Estacao* parse_esta(char *buff, int tam);
 
+//mostra todos os campos de Estacao (stdout)
+void print_esta(struct Estacao *est);
+
 //TODO
 // adicionar: isvalid_est
 // adicionar: isvalid_data
