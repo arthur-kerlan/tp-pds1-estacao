@@ -30,12 +30,13 @@ void parser_data(struct DataLeitura *data, char* buff) {
 //
 //a string idealmente eh uma linha do arquivo de persistencia
 //
-//tam - tamanho do buffer
-struct Estacao* parse_esta(char *buff, int tam) {
+//o parametro est NAO deve ser nao instanciado ou nulo (NULL)
+void parse_esta(struct Estacao *est, char *buff) {
   //Estacao possui ID,Nome,Operador,Sensor,Data,N,Media,Variancia,DesvioPadrao,Leituras
-  struct Estacao *est = (struct Estacao*) malloc(sizeof(struct Estacao));
-
-  est->id = 0;
+  //est = (struct Estacao*) malloc(sizeof(struct Estacao));
+  
+  if (est == NULL) 
+    return;
 
   est->id = atoi(strtok(buff, ","));
 
@@ -57,8 +58,6 @@ struct Estacao* parse_esta(char *buff, int tam) {
   est->leituras = malloc(sizeof(int)*est->n); // vetor alocado dinamicamente
 
   parse_leituras(est->leituras, est->n);
-
-  return est;
 }
 
 //mostra todos os campos de Estacao
