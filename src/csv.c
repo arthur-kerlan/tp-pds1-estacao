@@ -1,9 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "csv.h"
+#include "estacao.h"
 
-int salvarCSV(int tam, struct Estacao *v_est) {
-  FILE* pers = openf("test.csv" "w");
+#define MAX_BUFF 1150
+
+//le o numero de linhas em um arquivo
+//
+//retorna -1 caso nao consiga ler o arquivo
+int num_lines(char* path) {
+  FILE* file = fopen(path, "r");
+  char buff[100];
+  int count = 0;
+
+  if (file == NULL) return -1;
+
+  while(fgets(buff, 100, file) != NULL)
+    count++;
+
+  fclose(file);
+
+  return count; 
+}
+
+struct Estacao* carregarCSV() {
+  char line[MAX_STR];
+  char file_path[] = "test.csv";
+  char buff[MAX_BUFF];
+
+  int n = num_lines(file_path);
+
+  //o vetor nao eh inicializado tanto quando nao a entradas 
+  //e quando nao eh possivel ler o arquivo
+  if (n <= 0)
+    return NULL;
+  
+  FILE* file = fopen("test.csv", "r");
+
+  struct Estacao *v_est = (struct Estacao*) malloc(sizeof(struct Estacao ) * n);
+
+  for (int i = 0; i < n; i++) {
+    fgets(buff, MAX_BUFF, file);
+    parse_esta(&v_est[i], buff); 
+  }
+
+  fclose(file);
+
+  return v_est;
+}
+
+int salvarCSV(int tam, struct Estacao v_est[]) {
+  FILE* pers = fopen("test.csv", "w");
 
   //TODO
   //if (is_valid_data) para todo vetor
@@ -17,7 +64,7 @@ int salvarCSV(int tam, struct Estacao *v_est) {
 
     fprintf(pers, "%d/%d/%d,", v_est[i].data.dia, v_est[i].data.mes, v_est[i].data.ano);
 
-    fprintf(pers, "%d,%f,%f,%f", v_est[i].n, v_est[i].media, v_est[i].variancia, v_est[i].desvioPadrao );
+    fprintf(pers, "%d,%f,%f,%f,", v_est[i].n, v_est[i].media, v_est[i].variancia, v_est[i].desvioPadrao );
   }
 
   return 1;
