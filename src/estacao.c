@@ -30,10 +30,9 @@ void parser_data(struct DataLeitura *data, char* buff) {
 //
 //a string idealmente eh uma linha do arquivo de persistencia
 //
-//o parametro est NAO deve ser nao instanciado ou nulo (NULL)
+//o parametro est NAO deve nulo (NULL)
 void parse_esta(struct Estacao *est, char *buff) {
   //Estacao possui ID,Nome,Operador,Sensor,Data,N,Media,Variancia,DesvioPadrao,Leituras
-  //est = (struct Estacao*) malloc(sizeof(struct Estacao));
   
   if (est == NULL) 
     return;
@@ -60,6 +59,10 @@ void parse_esta(struct Estacao *est, char *buff) {
   parse_leituras(est->leituras, est->n);
 }
 
+void printDataLeitura(struct DataLeitura data) {
+  printf("%d/%d/%d\n", data.dia,data.mes, data.ano);
+}
+
 //mostra todos os campos de Estacao
 void print_esta(struct Estacao *est) {
   printf("Nome da Estacao: %s\n", est->nome);
@@ -67,9 +70,15 @@ void print_esta(struct Estacao *est) {
   printf("Operador: %s\n", est->operador);
   printf("Sensor: %s\n", est->sensor);
 
+  printf("Data da Leitura:");
+  printDataLeitura(est->data);
+  printf("Media: %.2f\n", est->media);
+  printf("Variancia: %.2f\n", est->variancia);
+  printf("Desvio Padrao: %.2f\n", est->desvioPadrao);
+
   printf("Leituras:\n");
   for (int i = 0; i < est->n; i++) 
-    printf("  %.3f\n", est->leituras[i]);
+    printf("  %.1f\n", est->leituras[i]);
 }
 
 //TODO
