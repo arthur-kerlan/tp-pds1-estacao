@@ -35,31 +35,43 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
   *v_est = (struct Estacao*) realloc(*v_est, sizeof(struct Estacao)*(tam+1));  
   int last = tam;
   
-  //variavel placeholder para facilitar manipulacao de vetor 
-  struct Estacao* v_temp = *v_est;
+  //variavel placeholder para facilitar manipulacao no vetor 
+  struct Estacao *v_temp= &(*v_est)[last];
 
-  //id torna-se a posicao da estacao no vetor
-  v_temp[last].id = last+1;
+  while (1) {
+    printf("Digite o numero do id da Estacao (entre %d e %d)\n", MIN_ID, MAX_ID);
+
+    if (scanf(" %d", &v_temp->id) != 1 ||
+        v_temp->id < MIN_ID || 
+        v_temp->id > MAX_ID) {
+      printf("ID Invalido!\n");
+      limpa_stdin();
+    }
+    else
+      break;
+  }
+
+  limpa_stdin();
 
   printf("Digite o nome da estacao (MAX %d caracteres)\n", MAX_NOME);
-  fgets(v_temp[last].nome, MAX_NOME, stdin);
+  fgets(v_temp->nome, MAX_NOME, stdin);
   
   printf("Digite o nome do operador da estacao (MAX %d caracteres)\n", MAX_OPERADOR);
-  fgets(v_temp[last].operador, MAX_OPERADOR, stdin);
+  fgets(v_temp->operador, MAX_OPERADOR, stdin);
 
   printf("Digite o tipo de sensor da estacao (MAX %d caracteres)\n", MAX_SENSOR);
-  fgets(v_temp[last].sensor, MAX_SENSOR, stdin);
+  fgets(v_temp->sensor, MAX_SENSOR, stdin);
 
-  retira_new_line(v_temp[last].nome);
-  retira_new_line(v_temp[last].operador);
-  retira_new_line(v_temp[last].sensor);
+  retira_new_line(v_temp->nome);
+  retira_new_line(v_temp->operador);
+  retira_new_line(v_temp->sensor);
 
   while (1) {
     printf("Digite a data das leituras (data deve ser escrita na forma dd/mm/aa)\n");
     fgets(date_str, MAX_DATA, stdin);
-    parser_data(&v_temp[last].data, date_str);
+    parser_data(&v_temp->data, date_str);
 
-    if(!is_valid_date(v_temp[last].data)) {
+    if(!is_valid_date(v_temp->data)) {
       printf("Data Invalida!\n");
       limpa_stdin();
     }
@@ -69,27 +81,27 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
 
   while (1) {
     printf("Digite o numero de leituras (numero maior que 0 e menor que %d)\n", MAX_NUM_LEITURAS);
-    scanf(" %d", &v_temp[last].n);
+    scanf(" %d", &v_temp->n);
     limpa_stdin();
 
-    if (0 >= v_temp[last].n || v_temp[last].n >= MAX_NUM_LEITURAS)
+    if (0 >= v_temp->n || v_temp->n >= MAX_NUM_LEITURAS)
       printf("Numero de leituras Invalido!\n");
     else
       break;
   }
 
-  v_temp[last].leituras = (float *) malloc(sizeof(float) * v_temp[last].n);
+  v_temp->leituras = (float *) malloc(sizeof(float) * v_temp->n);
 
   printf("Digite as leituras feitas pelo sensor:\n");
 
   char buff[50];//buffer temporario para fgets
   char* end;
-  for (int i = 0; i < v_temp[last].n; i++) {
+  for (int i = 0; i < v_temp->n; i++) {
     printf("Digite o valor %d (com casa decimais separadas por um ponto)\n", i+1); 
       while(1) {
 
         fgets(buff, sizeof(buff), stdin);
-        v_temp[last].leituras[i] = strtof(buff, &end);
+        v_temp->leituras[i] = strtof(buff, &end);
 
         //caso o endereco de end for igual ao de buff, nenhum valor foi lido
         if (end == buff)
@@ -102,9 +114,9 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
       }
   }
 
-  v_temp[last].media = media(v_temp[last].leituras, v_temp[last].n);
-  v_temp[last].variancia = variancia_populacional(v_temp[last].leituras, v_temp[last].n);
-  v_temp[last].desvioPadrao = desvio_padrao(v_temp[last].leituras, v_temp[last].n);
+  v_temp->media = media(v_temp->leituras, v_temp->n);
+  v_temp->variancia = variancia_populacional(v_temp->leituras, v_temp->n);
+  v_temp->desvioPadrao = desvio_padrao(v_temp->leituras, v_temp->n);
 
   return tam+1;
 }
