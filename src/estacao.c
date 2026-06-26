@@ -81,6 +81,38 @@ void print_esta(struct Estacao *est) {
     printf("  %.1f\n", est->leituras[i]);
 }
 
-//TODO
-// adicionar: isvalid_est
-// adicionar: isvalid_data
+//retorna 1 se a data definida for uma data
+//valida no calendario gregoriano.
+//Caso contrario, retorna 0
+int is_valid_date(struct DataLeitura data) {
+  //ultimo dia de cada mes
+  int max_dias_mes[12] = {31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  //muda o valor maximo de dias de feveiro se o ano e bissexto
+  if (((data.ano %4 == 0) && (data.ano % 100 != 0)) 
+  || (data.ano % 400 == 0)) 
+    max_dias_mes[1] = 29;
+  else 
+    max_dias_mes[1] = 28;
+
+  if(data.ano >= 1900)
+    if ((data.mes >= 1) && (data.mes <= 12)) 
+      if(data.dia >= 1)
+        if (data.dia <= max_dias_mes[data.mes-1])
+          return 1;
+
+  return 0;
+}
+
+int isvalid_est(struct Estacao *est) {
+
+  if (strlen(est->nome)!= 0 && 
+      strlen(est->operador) != 0 && 
+      strlen(est->sensor) != 0)
+    if (is_valid_data(est->data))
+      if (est->leituras != NULL)
+        return 1;
+
+  return 0;
+}
+

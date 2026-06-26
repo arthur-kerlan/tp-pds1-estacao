@@ -28,7 +28,17 @@ void parse_esta(struct Estacao *est, char *buff);
 //mostra todos os campos de Estacao (stdout)
 void print_esta(struct Estacao *est);
 
-//TODO
-// adicionar: isvalid_est
-// adicionar: isvalid_data
+//retorna 1 se a data definida for uma data
+//valida no calendario gregoriano.
+//Caso contrario, retorna 0
+int is_valid_date(struct DataLeitura data);
+
+//retorna 1 se a 'est' for valida,
+//caso contrario, retorna 0
+//
+//para est ser considerada valida, necessita-se:
+//  data valida
+//  ponteiro de leituras nao nulo
+//  nome, operador e sensor strings nao vazias
+int isvalid_est(struct Estacao *est);
 
