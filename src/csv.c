@@ -57,9 +57,10 @@ struct Estacao* carregarCSV() {
 int salvarCSV(int tam, struct Estacao v_est[]) {
   FILE* pers = fopen("test.csv", "w");
 
-  //TODO
-  //if (is_valid_data) para todo vetor
-  //if (is_valid_est) para todo vetor
+  for (int i = 0; i < tam; i++) {
+    if (!isvalid_est(&v_est[i]))
+      return -1;
+  }
 
   //escreve o cabecalho
   fprintf(pers,"ID,Nome,Operador,Sensor,Data,N,Media,Variancia,DesvioPadrao,Leituras\n");

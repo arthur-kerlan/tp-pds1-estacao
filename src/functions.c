@@ -59,9 +59,12 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
     fgets(date_str, MAX_DATA, stdin);
     parser_data(&v_temp[last].data, date_str);
 
-    //placeholder
-    //if(is_valid_data)
-    break;
+    if(!is_valid_date(v_temp[last].data)) {
+      printf("Data Invalida!\n");
+      limpa_stdin();
+    }
+    else
+      break;
   } 
 
   while (1) {
@@ -115,7 +118,7 @@ int editarEstacao(int tam, struct Estacao v_est[]);
 //
 //OBS: cada estacao deve possuir id unico
 int removerEstacao(int tam, struct Estacao *v_est[], int id) {
- int r_id = -1;
+ int r_id = -1;//id a ser removido
  int new_tam = tam-1; //novo tamanho do vetor
 
  for (int i = 0; i < tam; i++) 
@@ -124,11 +127,14 @@ int removerEstacao(int tam, struct Estacao *v_est[], int id) {
      break;
    }
  
+  //testa se o valor padrao se mante, (i.e. id nao encontrado em v_est)
  if (r_id == -1) {
    printf("Estacao vinculada ao ID %d nao encontrada \n", id);
    return tam;
  }
 
+  //leva o Estacao a ser removida para o final e diminui o tamanho do vetor v_est
+  //OBS: definitivamente nao eh a melhor maneira de essa realocacao
   for (int i = r_id; i < new_tam; i++) 
     swapEstacao(*v_est, i, i+1);
 
