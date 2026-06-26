@@ -4,7 +4,16 @@
 #include <errno.h>
 #include "estacao.h"
 #include "functions.h"
+#include "estatistica.h"
 
+//colocar em um helper separado
+void retira_new_line(char *str) {
+  char *chr = strchr(str, '\n');
+  if (chr != NULL)
+    *strchr(str, '\n') = '\0';
+}
+
+//colocar em um helper separado
 void limpa_stdin() {
   char c;
   while ((c = getchar()) != '\n' && c != EOF);
@@ -27,7 +36,6 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
 
   printf("Digite o nome da estacao (MAX %d caracteres)\n", MAX_NOME);
   fgets(v_temp[last].nome, MAX_NOME, stdin);
-  printf("%s", v_temp[last].nome);
   
   printf("Digite o nome do operador da estacao (MAX %d caracteres)\n", MAX_OPERADOR);
   fgets(v_temp[last].operador, MAX_OPERADOR, stdin);
@@ -35,13 +43,17 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
   printf("Digite o tipo de sensor da estacao (MAX %d caracteres)\n", MAX_SENSOR);
   fgets(v_temp[last].sensor, MAX_SENSOR, stdin);
 
+  retira_new_line(v_temp[last].nome);
+  retira_new_line(v_temp[last].operador);
+  retira_new_line(v_temp[last].sensor);
+
   while (1) {
     printf("Digite a data das leituras (data deve ser escrita na forma dd/mm/aa)\n");
     fgets(date_str, MAX_DATA, stdin);
     parser_data(&v_temp[last].data, date_str);
 
-    //if(is_valid_data)
     //placeholder
+    //if(is_valid_data)
     break;
   } 
 
@@ -81,10 +93,9 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
       }
   }
 
-  //TODO
-  //media
-  //variancia
-  //desvio
+  v_temp[last].media = media(v_temp[last].leituras, v_temp[last].n);
+  v_temp[last].variancia = variancia_populacional(v_temp[last].leituras, v_temp[last].n);
+  v_temp[last].desvioPadrao = desvio_padrao(v_temp[last].leituras, v_temp[last].n);
 
   return tam+1;
 }
@@ -95,7 +106,21 @@ int editarEstacao(int tam, struct Estacao v_est[]);
 //exclui uma estação a apartir de um dado id.
 //
 //caso nao haja o id especificado em v_est, retorna -1
-int removerEstacao(int tam, struct Estacao *v_est[], int id); 
+//
+//OBS: cada estacao deve possuir id unico
+int removerEstacao(int tam, struct Estacao *v_est[], int id) {
+ //int r_id = -1;
+ //for (int i = 0; i < tam; i++) 
+ //  if (id == v_est[i].id) {
+ //    r_id = i;
+ //    break;
+ //  }
+ //
+ //if (r_id == -1) {
+ //  printf("Estacao vinculada ao ID %d nao encontrada \n", id)
+ //  return tam;
+ //}
+}
 
 //exibe todas as estações de v_est com suas estatísticas.
 int listarEstacoes(int tam, struct Estacao v_est[]);
@@ -107,4 +132,4 @@ int listarEstacoes(int tam, struct Estacao v_est[]);
 void buscarPorOperador(int tam, struct Estacao v_est[], char *operador); 
 
 //lista as leituras de uma estação que se afastam da média em mais de dois desvios-padrão (|x − x ̄| > 2σ).
-int detectarAnomalias(int tam, struct Estacao v_est); 
+int detectarAnomalias(int tam, struct Estacao v_est[]); 
