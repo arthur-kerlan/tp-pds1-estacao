@@ -19,6 +19,13 @@ void limpa_stdin() {
   while ((c = getchar()) != '\n' && c != EOF);
 }
 
+void swapEstacao(struct Estacao v_est[], int i, int j) {
+
+  struct Estacao temp = v_est[i];
+  v_est[i] = v_est[j];
+  v_est[j] = temp;
+}
+
 // retorna o novo tamanho do vetor v_est
 int adicionarEstacao(int tam, struct Estacao **v_est) {
   char date_str[MAX_DATA];
@@ -56,7 +63,6 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
     //if(is_valid_data)
     break;
   } 
-
 
   while (1) {
     printf("Digite o numero de leituras (numero maior que 0 e menor que %d)\n", MAX_NUM_LEITURAS);
@@ -109,18 +115,26 @@ int editarEstacao(int tam, struct Estacao v_est[]);
 //
 //OBS: cada estacao deve possuir id unico
 int removerEstacao(int tam, struct Estacao *v_est[], int id) {
- //int r_id = -1;
- //for (int i = 0; i < tam; i++) 
- //  if (id == v_est[i].id) {
- //    r_id = i;
- //    break;
- //  }
- //
- //if (r_id == -1) {
- //  printf("Estacao vinculada ao ID %d nao encontrada \n", id)
- //  return tam;
- //}
+ int r_id = -1;
+ int new_tam = tam-1; //novo tamanho do vetor
 
+ for (int i = 0; i < tam; i++) 
+   if (id == (*v_est)[i].id) {
+     r_id = i;
+     break;
+   }
+ 
+ if (r_id == -1) {
+   printf("Estacao vinculada ao ID %d nao encontrada \n", id);
+   return tam;
+ }
+
+  for (int i = r_id; i < new_tam; i++) 
+    swapEstacao(*v_est, i, i+1);
+
+  *v_est = (struct Estacao*) realloc(*v_est, new_tam * sizeof(struct Estacao));
+
+  return new_tam;
 }
 
 //exibe todas as estações de v_est com suas estatísticas.
