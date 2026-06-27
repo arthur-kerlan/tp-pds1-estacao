@@ -156,13 +156,63 @@ int removerEstacao(int tam, struct Estacao *v_est[], int id) {
 }
 
 //exibe todas as estações de v_est com suas estatísticas.
-int listarEstacoes(int tam, struct Estacao v_est[]);
+int listarEstacoes(int tam, struct Estacao v_est[]){
+  for(int i=0;i<tam;i++){
+    printf("Estacao:%d\n",v_est[i].id);
+    printf("Nome:%s\n",v_est[i].nome);
+    printf("Operador:%s\n",v_est[i].operador);
+    printf("Sensor:%s\n",v_est[i].sensor);
+    printf("Quantidade de leituras:%d\n",v_est[i].n);
+    printf("Leituras:");
+    for(int j=0;j<v_est[i].n;j++){
+      printf("%2.f", v_est[i].leituras[j]);
+      if(j<v_est[i].n-1){
+        printf(", ");
+      }
+    }
+    printf("\n");
+    printf("Media:%.2f\n",v_est[i].media);
+    printf("Variancia:%.2f\n",v_est[i].variancia);
+    printf("Desvio padrao:%.2f\n",v_est[i].desvioPadrao);
+    printf("Data: %d/%d/%d\n",v_est[i].data.dia, v_est[i].data.mes,v_est[i].data.ano);
+    printf("\n");
+  }
+  return 0;
+}
 
 //mostra as estações de determinado operador.
 //
 //funcao le do usuario o nome do operador e busca no vetor
 //caso nao encontre nenhuma estacao com, imprime um erro na tela
-void buscarPorOperador(int tam, struct Estacao v_est[], char *operador); 
+void buscarPorOperador(int tam, struct Estacao v_est[], char operador[]){
+  int encontro = 0;
+  for(int i=0;i<tam;i++){
+    if(strcmp(v_est[i].operador,operador)== 0){
+      encontro = 1;
+      listarEstacoes(1,&v_est[i]);
+    }
+  }
+  if(encontro == 0){
+    printf("Erro: nenhuma estacao encontrada para o operador '%s'.\n\n", operador);
+  }
+}
 
 //lista as leituras de uma estação que se afastam da média em mais de dois desvios-padrão (|x − x ̄| > 2σ).
-int detectarAnomalias(int tam, struct Estacao v_est[]); 
+int detectarAnomalias(int tam, struct Estacao v_est[]){
+  int totalAnomalias=0;
+
+  for(int i=0; i<tam;i++){
+    for(int j=0;j<v_est[i].n;j++){
+      if(fabs(v_est[i].leituras[j] - v_est[i].media) >2*v_est[i].desvioPadrao){
+        printf("Estacao %d: leitura %.2f é anomala.\n",v_est[i].id,v_est[i].leituras[j]);
+        totalAnomalias++;
+      }
+    }
+  }
+  
+  if(totalAnomalias == 0){
+    printf("Nenhuma anomalia encontrada.\n");
+  }
+  return totalAnomalias;
+}
+
