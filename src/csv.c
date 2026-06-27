@@ -6,7 +6,7 @@
 #define MAX_BUFF 1150
 
 //string do diretorio do arqu CSV
-const char *CSV_PATH = "test.csv";
+const char *CSV_PATH = "pers/test.csv";
 
 //mover para helper
 //

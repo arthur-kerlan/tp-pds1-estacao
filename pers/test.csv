@@ -1,0 +1,4 @@
+ID,Nome,Operador,Sensor,Data,N,Media,Variancia,DesvioPadrao,Leituras
+1,EstacaoNorte,Talita,temperatura,12/10/2025,5,21.26,0.50,0.71,20.5;22.0;21.5;20.0;22.3
+2,Estacao Oeste,Proteus,chuva,13/5/2026,3,6.33,1.56,1.25,5.0;6.0;8.0
+3,OHIO station,Ohio,umidade,12/12/2008,3,30.00,66.67,8.16,20.0;30.0;40.0
