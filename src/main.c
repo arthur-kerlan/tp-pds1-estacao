@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
         exit_flag = 0;
         r = salvarCSV(tam, estacoes);
         if (r == 0) printf("Estacoes salvas automaticamente!\n");
-        free_est(&v);
+        free_est(tam, &estacoes);
         break;
       default:
         printf("Entrada invalida!\n");
