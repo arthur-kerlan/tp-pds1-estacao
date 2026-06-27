@@ -104,12 +104,12 @@ int is_valid_date(struct DataLeitura data) {
   return 0;
 }
 
-int isvalid_est(struct Estacao *est) {
+int is_valid_est(struct Estacao *est) {
 
   if (strlen(est->nome)!= 0 && 
       strlen(est->operador) != 0 && 
       strlen(est->sensor) != 0)
-    if (is_valid_data(est->data))
+    if (is_valid_date(est->data))
       if (est->leituras != NULL)
         return 1;
 
