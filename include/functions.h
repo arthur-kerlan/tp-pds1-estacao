@@ -1,5 +1,8 @@
 #include "datatype_estacao.h"
 
+//todas as funcoes requisitam interativamente 
+//pelo usuario informacoes a partir do stdin
+
 // cadastra uma nova estação
 //
 // a funcao solicita ao usuario os seguintes campos:
@@ -19,7 +22,7 @@ int editarEstacao(int tam, struct Estacao v_est[]);
 //exclui uma estação a apartir de um dado id.
 //
 //caso nao haja o id especificado em v_est, retorna -1
-int removerEstacao(int tam, struct Estacao **v_est, int id); 
+int removerEstacao(int tam, struct Estacao **v_est); 
 
 //exibe todas as estações de v_est com suas estatísticas.
 int listarEstacoes(int tam, struct Estacao v_est[]);

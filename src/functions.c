@@ -26,6 +26,31 @@ void swapEstacao(struct Estacao v_est[], int i, int j) {
   v_est[j] = temp;
 }
 
+//retorna o id de uma estacao em v_est a partir do seu ID
+//
+//caso nao encontre, retorna -1
+static int get_est_by_id(int tam, struct Estacao v_est[]) {
+  int id;//id recebido
+  while (1) {
+    printf("Digite o numero do id da Estacao (entre %d e %d)\n", MIN_ID, MAX_ID);
+
+    if (scanf(" %d", &id) != 1 ||
+        id < MIN_ID || 
+        id > MAX_ID) {
+      printf("ID Invalido!\n");
+      limpa_stdin();
+    }
+    else
+      break;
+  }
+
+  for (int i = 0; i < tam; i++) 
+    if (id == v_est[i].id) 
+      return i;
+    
+    return -1;
+}
+
 // retorna o novo tamanho do vetor v_est
 int adicionarEstacao(int tam, struct Estacao **v_est) {
   char date_str[MAX_DATA];
@@ -128,39 +153,19 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
 //altera nome, operador, sensor ou data.
 int editarEstacao(int tam, struct Estacao v_est[]) {
   //id dado pelo usuario e id dentro do vetor
-  int id, v_id;
-  int ff = 0;//found id flag
+  int  v_id = get_est_by_id(tam, v_est);
   char *swap_str;
   int max_swap;//tamanho max para buff swap_str
 
-   while (1) {
-    printf("Digite o numero do id da Estacao (entre %d e %d)\n", MIN_ID, MAX_ID);
 
-    if (scanf(" %d", &id) != 1 ||
-        id < MIN_ID || 
-        id > MAX_ID) {
-      printf("ID Invalido!\n");
-      limpa_stdin();
-    }
-    else
-      break;
+  if (v_id == -1) {
+    printf("Estacao vinculada ao ID %d nao encontrada!\n", v_id);
+    return -1;
   }
-
- for (int i = 0; i < tam; i++) 
-   if (id == v_est[i].id) {
-     v_id = i;
-     ff = 1;
-     break;
-   }
-
-if (!ff) {
-   printf("Estacao vinculada ao ID %d nao encontrada!\n", id);
-   return -1;
- }
   limpa_stdin();
 
   //tratamento de entrada de edicao do usuario
-  int lf; //loop flag - quando lf == 0, saiu do loop
+  int lf = 1; //loop flag - quando lf == 0, saiu do loop
   while(lf){
     lf=0;
     printf("Digite N, O, ou S para alterar nome, operador ou sensor respectivamente\n");
@@ -185,7 +190,7 @@ if (!ff) {
         max_swap = MAX_SENSOR;
         break;
       default:
-        lf=1
+        lf=1;
         printf("Entrda invalida!\n");
     }
   }
@@ -202,19 +207,14 @@ if (!ff) {
 //caso nao haja o id especificado em v_est, retorna -1
 //
 //OBS: cada estacao deve possuir id unico
-int removerEstacao(int tam, struct Estacao *v_est[], int id) {
- int r_id = -1;//id a ser removido
+int removerEstacao(int tam, struct Estacao *v_est[]) {
+ int r_id = get_est_by_id(tam, *v_est);//id a ser removido
  int new_tam = tam-1; //novo tamanho do vetor
 
- for (int i = 0; i < tam; i++) 
-   if (id == (*v_est)[i].id) {
-     r_id = i;
-     break;
-   }
  
   //testa se o valor padrao se mante, (i.e. id nao encontrado em v_est)
  if (r_id == -1) {
-   printf("Estacao vinculada ao ID %d nao encontrada \n", id);
+   printf("Estacao vinculada ao ID %d nao encontrada \n", r_id);
    return tam;
  }
 
