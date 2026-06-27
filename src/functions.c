@@ -38,6 +38,7 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
   //variavel placeholder para facilitar manipulacao no vetor 
   struct Estacao *v_temp= &(*v_est)[last];
 
+  //leitura e tratamento de ID
   while (1) {
     printf("Digite o numero do id da Estacao (entre %d e %d)\n", MIN_ID, MAX_ID);
 
@@ -66,6 +67,7 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
   retira_new_line(v_temp->operador);
   retira_new_line(v_temp->sensor);
 
+  //leitura e tratamento de data
   while (1) {
     printf("Digite a data das leituras (data deve ser escrita na forma dd/mm/aa)\n");
     fgets(date_str, MAX_DATA, stdin);
@@ -79,6 +81,7 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
       break;
   } 
 
+  //leitura e tratamento do numero de leituras que serao armazenadas
   while (1) {
     printf("Digite o numero de leituras (numero maior que 0 e menor que %d)\n", MAX_NUM_LEITURAS);
     scanf(" %d", &v_temp->n);
@@ -96,6 +99,7 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
 
   char buff[50];//buffer temporario para fgets
   char* end;
+  //leitura e tratamento das leituras 
   for (int i = 0; i < v_temp->n; i++) {
     printf("Digite o valor %d (com casa decimais separadas por um ponto)\n", i+1); 
       while(1) {
@@ -122,7 +126,76 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
 }
 
 //altera nome, operador, sensor ou data.
-int editarEstacao(int tam, struct Estacao v_est[]);
+int editarEstacao(int tam, struct Estacao v_est[]) {
+  //id dado pelo usuario e id dentro do vetor
+  int id, v_id;
+  int ff = 0;//found id flag
+  char *swap_str;
+  int max_swap;//tamanho max para buff swap_str
+
+   while (1) {
+    printf("Digite o numero do id da Estacao (entre %d e %d)\n", MIN_ID, MAX_ID);
+
+    if (scanf(" %d", &id) != 1 ||
+        id < MIN_ID || 
+        id > MAX_ID) {
+      printf("ID Invalido!\n");
+      limpa_stdin();
+    }
+    else
+      break;
+  }
+
+ for (int i = 0; i < tam; i++) 
+   if (id == v_est[i].id) {
+     v_id = i;
+     ff = 1;
+     break;
+   }
+
+if (!ff) {
+   printf("Estacao vinculada ao ID %d nao encontrada!\n", id);
+   return -1;
+ }
+  limpa_stdin();
+
+  //tratamento de entrada de edicao do usuario
+  int lf; //loop flag - quando lf == 0, saiu do loop
+  while(lf){
+    lf=0;
+    printf("Digite N, O, ou S para alterar nome, operador ou sensor respectivamente\n");
+    //define o ponteiro para str a ser editada
+    switch (getchar()) {
+      case 'n':
+      case 'N':
+        swap_str = v_est[v_id].nome;
+        printf("Digite novo nome para Estacao\n");
+        max_swap = MAX_NOME;
+        break;
+      case 'o':
+      case 'O':
+        swap_str = v_est[v_id].operador;
+        printf("Digite novo nome para operador da Estacao\n");
+        max_swap = MAX_OPERADOR;
+        break;
+      case 's':
+      case 'S':
+        swap_str = v_est[v_id].sensor;
+        printf("Digite novo nome para sensor\n");
+        max_swap = MAX_SENSOR;
+        break;
+      default:
+        lf=1
+        printf("Entrda invalida!\n");
+    }
+  }
+
+  limpa_stdin();
+  fgets(swap_str, max_swap, stdin);
+  retira_new_line(swap_str);
+
+  return 0;
+}
 
 //exclui uma estação a apartir de um dado id.
 //
