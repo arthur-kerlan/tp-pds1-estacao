@@ -5,12 +5,15 @@
 
 #define MAX_BUFF 1150
 
+//string do diretorio do arqu CSV
+const char *CSV_PATH = "test.csv";
+
 //mover para helper
 //
 //le o numero de linhas em um arquivo
 //
 //retorna -1 caso nao consiga ler o arquivo
-int num_lines(char* path) {
+int num_lines(const char* path) {
   FILE* file = fopen(path, "r");
   char buff[100];
   int count = 0;
@@ -25,19 +28,24 @@ int num_lines(char* path) {
   return count; 
 }
 
+
+//retorna numero de entradas do arquivo CSV desconsiderando o cabecalho
+int num_entries() {
+  return num_lines(CSV_PATH)-1;
+}
+
 struct Estacao* carregarCSV() {
   char line[MAX_STR];
-  char file_path[] = "test.csv";
   char buff[MAX_BUFF];
 
-  int n = num_lines(file_path)-1;
+  int n = num_entries();
 
   //o vetor nao eh inicializado tanto quando nao a entradas 
   //e quando nao eh possivel ler o arquivo
   if (n <= 0)
     return NULL;
   
-  FILE* file = fopen("test.csv", "r");
+  FILE* file = fopen(CSV_PATH, "r");
 
   //ignora primeira linha (cabecalho)
   fgets(buff, MAX_BUFF, file);
@@ -55,7 +63,7 @@ struct Estacao* carregarCSV() {
 }
 
 int salvarCSV(int tam, struct Estacao v_est[]) {
-  FILE* pers = fopen("test.csv", "w");
+  FILE* pers = fopen(CSV_PATH, "w");
 
   for (int i = 0; i < tam; i++) {
     if (!is_valid_est(&v_est[i]))
@@ -90,5 +98,4 @@ int salvarCSV(int tam, struct Estacao v_est[]) {
 
   return 0;
 }
-
 
