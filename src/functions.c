@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <math.h>
 #include "estacao.h"
 #include "functions.h"
 #include "estatistica.h"
