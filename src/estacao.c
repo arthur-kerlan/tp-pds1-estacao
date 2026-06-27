@@ -54,7 +54,7 @@ void parse_esta(struct Estacao *est, char *buff) {
   est->variancia = atof(strtok(NULL, ","));
   est->desvioPadrao  = atof(strtok(NULL, ","));
 
-  est->leituras = malloc(sizeof(int)*est->n); // vetor alocado dinamicamente
+  est->leituras = malloc(sizeof(float)*est->n); // vetor alocado dinamicamente
 
   parse_leituras(est->leituras, est->n);
 }
