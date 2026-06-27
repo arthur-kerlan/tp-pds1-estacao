@@ -42,3 +42,5 @@ int is_valid_date(struct DataLeitura data);
 //  nome, operador e sensor strings nao vazias
 int is_valid_est(struct Estacao *est);
 
+//destructor para um vetor de struct Estacao 
+void free_est(int tam, struct Estacao *v_est[]);

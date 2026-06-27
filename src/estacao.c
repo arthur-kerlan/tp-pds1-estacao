@@ -11,7 +11,7 @@ void parse_leituras(float* leituras, int n) {
   }
 }
 
-// buffer deve ser do tipo ss/mm/aa
+// buffer deve ser do tipo ss/mm/aaaa
 // s - segundo; m - mes; a - ano
 //
 // caso buffer nao esteja adequado,
@@ -116,3 +116,13 @@ int is_valid_est(struct Estacao *est) {
   return 0;
 }
 
+//destructor para um vetor de struct Estacao 
+//libera memoria de leituras e depois do vetor 
+//É preciso ser um ponteiro de ponteiro para acessar o end. de v_est[]
+void free_est(int tam, struct Estacao *v_est[]) {
+  for (int i = 0; i < tam; i++) {
+    free((*v_est)[i].leituras);
+  }
+
+  free(*v_est);
+}
