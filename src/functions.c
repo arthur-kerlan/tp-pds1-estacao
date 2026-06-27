@@ -34,7 +34,9 @@ static int get_est_by_id(int tam, struct Estacao v_est[]) {
 }
 
 // retorna o novo tamanho do vetor v_est
-int adicionarEstacao(int tam, struct Estacao **v_est) {
+//
+//É preciso ser um ponteiro de ponteiro para acessar o end. de v_est[]
+int adicionarEstacao(int tam, struct Estacao *v_est[]) {
   char date_str[MAX_DATA];
 
   //realocação dinamica do array v_v_est[last]
@@ -187,6 +189,8 @@ int editarEstacao(int tam, struct Estacao v_est[]) {
 //exclui uma estação a apartir de um dado id.
 //
 //caso nao haja o id especificado em v_est, retorna -1
+//
+//É preciso ser um ponteiro de ponteiro para acessar o end. de v_est[]
 //
 //OBS: cada estacao deve possuir id unico
 int removerEstacao(int tam, struct Estacao *v_est[]) {

@@ -14,7 +14,7 @@
 // – Valores numéricos das leituras medidas.
 //
 // retorna o novo tamanho do vetor v_est
-int adicionarEstacao(int tam, struct Estacao **v_est);
+int adicionarEstacao(int tam, struct Estacao *v_est[]);
 
 //altera nome, operador, sensor ou data.
 int editarEstacao(int tam, struct Estacao v_est[]);
@@ -22,7 +22,7 @@ int editarEstacao(int tam, struct Estacao v_est[]);
 //exclui uma estação a apartir de um dado id.
 //
 //caso nao haja o id especificado em v_est, retorna -1
-int removerEstacao(int tam, struct Estacao **v_est); 
+int removerEstacao(int tam, struct Estacao *v_est[]); 
 
 //exibe todas as estações de v_est com suas estatísticas.
 int listarEstacoes(int tam, struct Estacao v_est[]);
