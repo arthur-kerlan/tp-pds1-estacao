@@ -6,26 +6,7 @@
 #include "estacao.h"
 #include "functions.h"
 #include "estatistica.h"
-
-//colocar em um helper separado
-void retira_new_line(char *str) {
-  char *chr = strchr(str, '\n');
-  if (chr != NULL)
-    *strchr(str, '\n') = '\0';
-}
-
-//colocar em um helper separado
-void limpa_stdin() {
-  char c;
-  while ((c = getchar()) != '\n' && c != EOF);
-}
-
-void swapEstacao(struct Estacao v_est[], int i, int j) {
-
-  struct Estacao temp = v_est[i];
-  v_est[i] = v_est[j];
-  v_est[j] = temp;
-}
+#include "helper.h"
 
 //retorna o id de uma estacao em v_est a partir do seu ID
 //
@@ -95,7 +76,7 @@ int adicionarEstacao(int tam, struct Estacao **v_est) {
 
   //leitura e tratamento de data
   while (1) {
-    printf("Digite a data das leituras (data deve ser escrita na forma dd/mm/aa)\n");
+    printf("Digite a data das leituras (data deve ser escrita na forma dd/mm/aaaa)\n");
     fgets(date_str, MAX_DATA, stdin);
     parser_data(&v_temp->data, date_str);
 
