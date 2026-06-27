@@ -40,5 +40,5 @@ int is_valid_date(struct DataLeitura data);
 //  data valida
 //  ponteiro de leituras nao nulo
 //  nome, operador e sensor strings nao vazias
-int isvalid_est(struct Estacao *est);
+int is_valid_est(struct Estacao *est);
 

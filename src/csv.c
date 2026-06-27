@@ -58,7 +58,7 @@ int salvarCSV(int tam, struct Estacao v_est[]) {
   FILE* pers = fopen("test.csv", "w");
 
   for (int i = 0; i < tam; i++) {
-    if (!isvalid_est(&v_est[i]))
+    if (!is_valid_est(&v_est[i]))
       return -1;
   }
 
