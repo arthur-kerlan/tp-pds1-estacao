@@ -178,8 +178,7 @@ A funcao solicita ao usuario os seguintes campos:
 
 * **Entrada**: tamanho do vetor (`int`) e ponteiro de vetor  de
 `struct Estacao`  (`**struct Estacao`)
-* **Saída**: retorna o novo tamanho do vetor
-v_est (`int`)
+* **Saída**: retorna o novo tamanho do vetor v_est (`int`)
 
 ### `int removerEstacao(int tam, struct Estacao *v_est)`
 
@@ -197,7 +196,7 @@ v_est (`int`)
 altera nome, operador, sensor ou data (requsitando ao usuário).
 
 * **Entrada**: tamanho do vetor (`int`) e vetor  de
-`struct Estacao`  (`**struct Estacao`)
+`struct Estacao`  
 * **Saída**: retorna 0 para sucesso e -1 caso contrário (`int`)
 
 ### `int listarEstacoes(int tam, struct Estacao *v_est)`
@@ -205,16 +204,89 @@ altera nome, operador, sensor ou data (requsitando ao usuário).
 exibe todas as estacoes de  `v_est` com suas estatísticas.
 
 * **Entrada**: tamanho do vetor (`int`) e vetor  de
-`struct Estacao`  (`**struct Estacao`)
+`struct Estacao`
 
 * **Saída**: retorna 0
 
 ### `void buscarPorOperador(int tam, struct Estacao v_est[], char operador[])`
 
 Mostra as estacoes de determinado operador.
-Funcao le do usuario o nome do operador e busca no vetor
-Caso nao encontre nenhuma estacao com, imprime um erro na tela
+Função le do usuario o nome do operador e busca no vetor,
+Caso não encontre nenhuma estacao com o operador, imprime um erro na tela.
 
 * **Entrada**: tamanho do vetor (`int`) e vetor de
-`struct Estacao`  (`**struct Estacao`)
+`struct Estacao`
 * **Saída**: Sem saída
+
+### `int detectarAnomalias(int tam, struct Estacao *v_est)`
+
+Lista as leituras de uma estacao que se afastam da média em mais de dois
+desvios-padrao (|x<sub>i</sub> − x<sub>m</sub>| > 2σ).
+
+* **Entrada**: tamanho do vetor (`int`) e vetor de
+`struct estacao`
+* **Saída**: retorna o total de anomalias de leitura encontradas(`int`)
+
+### `float media(float v[], int tam)`
+
+Calcula média aritmética a partir de um vetor de tipo float.
+Utiliza **Soma Recursiva**.
+
+* **Entrada**: vetor de tipo `float` e
+tamanho do vetor (`int`)
+* **Saída**: retorna o valor em `float`
+
+### `float variancia_populacional(float v[], int tam)`
+
+Calcula variância populacional a partir de um vetor de tipo float.
+
+* **Entrada**: vetor de tipo `float` e
+tamanho do vetor (`int`)
+* **Saída**: retorna o valor em `float`
+
+### `float desvio_padrao(float v[], int tam)`
+
+Calcula desvio padrão a partir de um vetor de tipo float
+
+* **Entrada**: vetor de tipo `float` e
+tamanho do vetor (`int`)
+* **Saída**: retorna o valor em `float` (utilizando `sqrtf`)
+
+### `void retira_new_line(char *str)`
+
+Troca ,caso houver, o primeiro '\n' encontrado por '\0'
+
+* **Entrada**: Recebe uma string (`char *`)
+* **Saída**: Sem saída
+
+### `void swapEstacao(struct Estacao v_est[], int i, int j)`
+
+Troca duas Estacoes de lugar em um vetor de `struct estacao`
+
+* **Entrada**: vetor de `struct estacao` e dois indices de v_est
+ `i` e `j` de tipo `int`
+* **Saída**: Sem saída.
+
+### `void limpa_stdin()`
+
+Limpa todos os caracteres sobressalentes em `stdin`
+
+* **Entrada**: Sem Entrada.
+* **Saída**: Sem saída.
+
+### `int num_lines(const char* path)`
+
+Lê o numero de linhas em um arquivo.
+
+* **Entrada**: Recebe uma string (`char *`) de
+caminho relativo para o arquivo.
+* **Saída**: Retorna o numero de linhas como `int`.
+Caso não consiga abrir o arquivo, retorna -1;
+
+### `int main()`
+Função principal. Controla o loop do menu, lê as opções,
+solicita os valores de entrada (especificamente para buscarPorOperador), 
+chama as funções correspondentes (serviços para usuário em functions)
+e exibe os resultados.
+* **Entrada:** interação do usuário via teclado.
+* **Saída:** retorna `0` ao encerrar o programa.
