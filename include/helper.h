@@ -3,6 +3,7 @@
 //troca ,caso houver, o primeiro '\n' encontrado por '\0' 
 void retira_new_line(char *str);
 
+//limpa todos os caracteres sobressalentes em stdin
 void limpa_stdin();
 
 //troca duas Estacoes de lugar em um vetor de struct Estacao

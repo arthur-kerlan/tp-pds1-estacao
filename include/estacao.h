@@ -4,7 +4,7 @@
 //para csv.h uma vez que nao majoritariamente helpers
 //do modulo de persistencia
 
-//helper de atribuicao das leituras feitas em struct Estacao (parse_esta)
+//helper de atribuicao das leituras feitas em struct estacao (parse_esta)
 //
 //Necessaria haver um buffer atribuido a funcao strtok
 //
