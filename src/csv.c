@@ -2,31 +2,12 @@
 #include <stdlib.h>
 #include "csv.h"
 #include "estacao.h"
+#include "helper.h"
 
 #define MAX_BUFF 1150
 
-//string do diretorio do arqu CSV
+//string do diretorio do arquivo CSV
 const char *CSV_PATH = "pers/test.csv";
-
-//mover para helper
-//
-//le o numero de linhas em um arquivo
-//
-//retorna -1 caso nao consiga ler o arquivo
-int num_lines(const char* path) {
-  FILE* file = fopen(path, "r");
-  char buff[100];
-  int count = 0;
-
-  if (file == NULL) return -1;
-
-  while(fgets(buff, 100, file) != NULL)
-    count++;
-
-  fclose(file);
-
-  return count; 
-}
 
 
 //retorna numero de entradas do arquivo CSV desconsiderando o cabecalho

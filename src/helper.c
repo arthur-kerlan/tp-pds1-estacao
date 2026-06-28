@@ -2,6 +2,24 @@
 #include <stdio.h>
 #include <string.h>
 
+//le o numero de linhas em um arquivo
+//
+//retorna -1 caso nao consiga ler o arquivo
+int num_lines(const char* path) {
+  FILE* file = fopen(path, "r");
+  char buff[100];
+  int count = 0;
+
+  if (file == NULL) return -1;
+
+  while(fgets(buff, 100, file) != NULL)
+    count++;
+
+  fclose(file);
+
+  return count; 
+}
+
 //colocar em um helper separado
 void retira_new_line(char *str) {
   char *chr = strchr(str, '\n');

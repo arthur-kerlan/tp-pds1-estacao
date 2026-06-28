@@ -39,7 +39,7 @@ static int get_est_by_id(int tam, struct Estacao v_est[]) {
 int adicionarEstacao(int tam, struct Estacao *v_est[]) {
   char date_str[MAX_DATA];
 
-  //realocação dinamica do array v_v_est[last]
+  //realocacao dinamica do array v_v_est[last]
   //adiciona mais um campo - desconsiderando possiveis erros de alocacao de memoria
   *v_est = (struct Estacao*) realloc(*v_est, sizeof(struct Estacao)*(tam+1));  
   int last = tam;
@@ -186,7 +186,7 @@ int editarEstacao(int tam, struct Estacao v_est[]) {
   return 0;
 }
 
-//exclui uma estação a apartir de um dado id.
+//exclui uma estacao a apartir de um dado id.
 //
 //caso nao haja o id especificado em v_est, retorna -1
 //
@@ -214,7 +214,7 @@ int removerEstacao(int tam, struct Estacao *v_est[]) {
   return new_tam;
 }
 
-//exibe todas as estações de v_est com suas estatísticas.
+//exibe todas as estacoes de v_est com suas estatísticas.
 int listarEstacoes(int tam, struct Estacao v_est[]){
   for(int i=0;i<tam;i++){
     printf("Estacao:%d\n",v_est[i].id);
@@ -239,7 +239,7 @@ int listarEstacoes(int tam, struct Estacao v_est[]){
   return 0;
 }
 
-//mostra as estações de determinado operador.
+//mostra as estacoes de determinado operador.
 //
 //funcao le do usuario o nome do operador e busca no vetor
 //caso nao encontre nenhuma estacao com, imprime um erro na tela
@@ -256,7 +256,7 @@ void buscarPorOperador(int tam, struct Estacao v_est[], char operador[]){
   }
 }
 
-//lista as leituras de uma estação que se afastam da média em mais de dois desvios-padrão (|x − x ̄| > 2σ).
+//lista as leituras de uma estacao que se afastam da média em mais de dois desvios-padrao (|x − x ̄| > 2σ).
 int detectarAnomalias(int tam, struct Estacao v_est[]){
   int totalAnomalias=0;
 
