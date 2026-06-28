@@ -16,7 +16,7 @@ static void print_separador(int num) {
 static void printMenu() {
   print_separador(60);
   printf("Digite M para mostrar este menu\n");
-  printf("Digite N para adicionar nova estação\n");
+  printf("Digite N para adicionar nova estacao\n");
   printf("Digite R para remover estacao pelo ID\n");
   printf("Digite E para editar estacao pelo ID\n");
   printf("Digite L para listar todas as estacoes\n");

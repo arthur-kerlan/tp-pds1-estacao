@@ -118,7 +118,7 @@ int is_valid_est(struct Estacao *est) {
 
 //destructor para um vetor de struct Estacao 
 //libera memoria de leituras e depois do vetor 
-//É preciso ser um ponteiro de ponteiro para acessar o end. de v_est[]
+//eh preciso ser um ponteiro de ponteiro para acessar o end. de v_est[]
 void free_est(int tam, struct Estacao *v_est[]) {
   for (int i = 0; i < tam; i++) {
     free((*v_est)[i].leituras);

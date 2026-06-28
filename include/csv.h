@@ -3,7 +3,7 @@
 //retorna numero de entradas do arquivo CSV
 int num_entries();
 
-//grava todas as estações em arquivo CSV 
+//grava todas as estacoes em arquivo CSV 
 int salvarCSV(int tam, struct Estacao v_est[]);
 
 //lê o arquivo CSV e restaura os dados para a memória.
