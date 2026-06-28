@@ -1,6 +1,9 @@
 # tp-pds1-estacao
 
 Trabalho Prático da matéria de PROGRAMAÇÃO E DESENVOLVIMENTO DE SOFTWARE I - 2026.1
+**Alunos**:
+Arthur Kerlan
+Lara Gonçalves
 
 ## Sistema de Monitoramento de Estaçoes Meteorológicas
 
